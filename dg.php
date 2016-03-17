@@ -9,7 +9,7 @@ $todaysDomainsListFileDir = "expired_domains/$todaysDomainsListFileName";
 if (!is_file($todaysDomainsListFileDir)) {
 
     try {
-        $expiredDomainsList = fopen('http://domaingraveyard.com/list/'.$todaysDomainsListFileName, 'r');
+        $expiredDomainsList = fopen("http://domaingraveyard.com/list/$todaysDomainsListFileName", 'r');
         file_put_contents($todaysDomainsListFileDir, $expiredDomainsList);
     } catch (Exception $e) {
         //
