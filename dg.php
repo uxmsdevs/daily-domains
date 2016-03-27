@@ -3,18 +3,28 @@
 ini_set('memory_limit', '1024M');
 
 $today = date('Y-m-d');
+$dailyDomainsFolder = 'expired_domains/';
 $todaysDomainsListFileName = "$today.txt";
-$todaysDomainsListFileDir = "expired_domains/$todaysDomainsListFileName";
 
+$todaysDomainsListFileDir = $dailyDomainsFolder.$todaysDomainsListFileName;
+
+// Create dir
+if (!is_dir($dailyDomainsFolder)) {
+    try {
+        mkdir($dailyDomainsFolder);
+    } catch (Exception $e) {
+        // 
+    }
+}
+
+// If today's domain not fetched yet..
 if (!is_file($todaysDomainsListFileDir)) {
-
     try {
         $expiredDomainsList = fopen("http://domaingraveyard.com/list/$todaysDomainsListFileName", 'r');
         file_put_contents($todaysDomainsListFileDir, $expiredDomainsList);
     } catch (Exception $e) {
         //
     }
-
 }
 
 // Open today's domain list file
